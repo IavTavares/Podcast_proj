@@ -5,7 +5,6 @@ import json
 import requests
 import re
 
-
 def episode_list(podcast_url):
     page = requests.get(podcast_url)
     soup = BeautifulSoup(page.content, 'html.parser')
@@ -37,15 +36,23 @@ def episode_mp3_list(episode_url):
 
 def download_mp3(list_episodes:list, folder_path:str):
         for episode_url in list_episodes:
-                episode_mp3 = episode_mp3_list(episode_url)[0]
-                r = requests.get(episode_mp3, allow_redirects=True)
                 name = file_name(episode_url)
-                if r.headers.get('content-type')=="audio/mpeg":
-                        with open(folder_path+"/"+name, 'wb') as f:
-                                f.write(r.content)
+                if not file_Q(os.path.join(folder_path,name)):
+                    episode_mp3_url = episode_mp3_list(episode_url)[0]
+                    r = requests.get(episode_mp3_url, allow_redirects=True)
+                    if r.headers.get('content-type')=="audio/mpeg":
+                            with open(folder_path+"/"+name, 'wb') as f:
+                                    f.write(r.content)
+                    else:
+                            print(f"No audio/mpeg file was downloaded for {name}!")
                 else:
-                        print(f"No audio/mpeg file was downloaded for {name}!")
+                    print(f"File {name} already exists in {folder_path}")
 
 if __name__=="__main__":
+    from utilities.filesystem import *
+
     ep_list_concordance = episode_list(url_concordance)
+    if not folder_Q(folder_path_concordance):
+        create_folder(folder_path_concordance)
+
     download_mp3(ep_list_concordance,folder_path_concordance)
