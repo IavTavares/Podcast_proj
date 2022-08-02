@@ -1,10 +1,10 @@
 import os
 PROJ_PATH = os.path.abspath(os.path.curdir)
 
-folder_path_affaires = PROJ_PATH+"/data/affaires_etrangeres"
-folder_path_concordance = PROJ_PATH+"/data/concordance_des_temps"
-folder_path_culture = PROJ_PATH+"/data/culture_monde"
-folder_path_eco = PROJ_PATH+"/data/entendez_eco"
+folder_path_affaires = os.path.join(PROJ_PATH,"data","affaires_etrangeres")
+folder_path_concordance = os.path.join(PROJ_PATH,"data","concordance_des_temps")
+folder_path_culture = os.path.join(PROJ_PATH,"data","culture_monde")
+folder_path_eco = os.path.join(PROJ_PATH,"data","entendez_eco")
 
 # .env is located in the project root directory
 
