@@ -4,6 +4,7 @@ from constants import *
 import json
 import requests
 import re
+from utilities.filesystem import *
 
 def episode_list(podcast_url):
     page = requests.get(podcast_url)
@@ -21,8 +22,9 @@ def file_name(episode_url):
     res = string.strip("-0123456789")+".mp3"
     return res
 
-def episode_mp3_list(episode_url):
-    """episode_url is an element from the list returned by episode_list function"""
+def url_mp3_list(episode_url):
+    """episode_url is an element from the list returned by episode_list function
+    It returns a list of url for the mp3 files"""
     episode_page = requests.get(episode_url)# ep_list_concordance[0])
     soup = BeautifulSoup(episode_page.content, 'html.parser')
     results = soup.find_all(type="application/ld+json")
@@ -38,7 +40,7 @@ def download_mp3(list_episodes:list, folder_path:str):
         for episode_url in list_episodes:
                 name = file_name(episode_url)
                 if not file_Q(os.path.join(folder_path,name)):
-                    episode_mp3_url = episode_mp3_list(episode_url)[0]
+                    episode_mp3_url = url_mp3_list(episode_url)[0]
                     r = requests.get(episode_mp3_url, allow_redirects=True)
                     if r.headers.get('content-type')=="audio/mpeg":
                             with open(folder_path+"/"+name, 'wb') as f:
@@ -49,8 +51,7 @@ def download_mp3(list_episodes:list, folder_path:str):
                     print(f"File {name} already exists in {folder_path}")
 
 if __name__=="__main__":
-    from utilities.filesystem import *
-
+    
     ep_list_concordance = episode_list(url_concordance)
     if not folder_Q(folder_path_concordance):
         create_folder(folder_path_concordance)
