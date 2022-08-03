@@ -1,5 +1,5 @@
 #from utilities.constants import *
-from flask import request
+from flask import request, jsonify
 from flask_restful import Resource
 import json
 
@@ -62,7 +62,8 @@ class List_Podcasts(Resource):
             success = False
             errors.append("Could not load json file with podcast_list")
         # podcast_list is imported from constants
-        response = {'list_podcast' : podcast_list.keys(),
+        response = {'list_podcast' : list(podcast_list.keys()),
                     'success': success,
                     'errors': errors}
+        print(response)
         return response
