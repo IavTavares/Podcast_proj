@@ -1,6 +1,6 @@
 
 from bs4 import BeautifulSoup
-from constants import *
+#from utilities.constants import *
 import json
 import requests
 import re

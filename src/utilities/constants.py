@@ -13,3 +13,22 @@ url_affaires = "https://www.radiofrance.fr/franceculture/podcasts/affaires-etran
 url_concordance = "https://www.radiofrance.fr/franceculture/podcasts/concordance-des-temps"
 url_culture = "https://www.radiofrance.fr/franceculture/podcasts/cultures-monde"
 url_eco = "https://www.radiofrance.fr/franceculture/podcasts/entendez-vous-l-eco"
+
+podcast_list = {
+    "affaires":{
+        "folder":folder_path_affaires,
+        "url":url_affaires
+    },
+    "concordance":{
+        "folder":folder_path_concordance,
+        "url":url_concordance
+    },
+    "culture":{
+        "folder":folder_path_culture,
+        "url":url_culture
+    },
+    "eco":{
+        "folder":folder_path_eco,
+        "url":url_eco
+    },     
+}

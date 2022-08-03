@@ -1,1 +1,3 @@
-curl --request POST --url http://127.0.0.1:5000/list_episodes --header 'Content-Type: application/json' --data '{"podcast_url": "https://www.radiofrance.fr/franceculture/podcasts/cultures-monde"}'
+#curl --request POST --url http://127.0.0.1:5000/list_episodes --header 'Content-Type: application/json' --data '{"podcast_url": "https://www.radiofrance.fr/franceculture/podcasts/cultures-monde"}'
+
+curl --request GET --url http://127.0.0.1:5000/list_podcasts --header 'Content-Type: application/json'

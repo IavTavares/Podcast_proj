@@ -1,7 +1,7 @@
 import requests
 import json
 import time
-from constants import *
+from utilities.constants import *
 
 dev_server = ""
 stage_server = ""

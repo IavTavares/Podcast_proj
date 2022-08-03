@@ -14,6 +14,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-api": "flask --app  ../src/flask_api.py run",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
