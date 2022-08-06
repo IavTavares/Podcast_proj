@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 // import './App.css';
 
 function ListItem(props) {
@@ -6,24 +6,29 @@ function ListItem(props) {
   return <li>{props.value}</li>;
 }
 
-function App() {
-  const [podcastList, setPodcastList] = useState(null);
+async function podcast_list() {
+  let podcast_list;
   const headers = { 'Content-Type': 'application/json' };
+  const res = await fetch('/list_podcasts', { method: 'GET',headers});
+  podcast_list = await res.json();
+  console.log(podcast_list);
+  return podcast_list
+}
 
-  fetch('https://localhost:5000/list_podcasts', { headers })
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .then(data => setPodcastList(data.list_podcast))
-        .catch(error => console.log(error));
-  
-  const listItems = podcastList.map((podcast) =>
-    // Correct! Key should be specified inside the array.
-    <ListItem value = {podcast} />);
+function App() {
+  // const [podcastList, setPodcastList] = useState(null);
+  // const headers = { 'Content-Type': 'application/json' };
+
+  //       .then(data => setPodcastList(data.list_podcast))
+  //       .catch(error => console.log(error));
+
+  const podcastList = podcast_list();
+  // const listItems = podcastList.map((podcast) =>
+  //   // Correct! Key should be specified inside the array.
+  //   <ListItem value = {podcast} />);
   return (
     <div className="Podcast_List">
-    <ul>
-      {listItems}
-    </ul>
+    {/* <p> {podcastList} </p> */}
     </div>
   );
 }

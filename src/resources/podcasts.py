@@ -62,7 +62,9 @@ class List_Podcasts(Resource):
             success = False
             errors.append("Could not load json file with podcast_list")
         # podcast_list is imported from constants
-        response = {'list_podcast' : list(podcast_list.keys()),
+        podcast_list_names = [podcast["name"] for podcast in podcast_list.values()]
+        
+        response = {'list_podcast' : podcast_list_names,
                     'success': success,
                     'errors': errors}
         print(response)
