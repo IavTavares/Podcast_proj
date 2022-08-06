@@ -17,18 +17,22 @@ url_eco = "https://www.radiofrance.fr/franceculture/podcasts/entendez-vous-l-eco
 podcast_list = {
     "affaires":{
         "folder":folder_path_affaires,
-        "url":url_affaires
+        "url":url_affaires,
+        "name":"Affaires Étrangères"
     },
     "concordance":{
         "folder":folder_path_concordance,
-        "url":url_concordance
+        "url":url_concordance,
+        "name":"Concordance des Temps"
     },
     "culture":{
         "folder":folder_path_culture,
-        "url":url_culture
+        "url":url_culture,
+        "name":"Cultures Monde"
     },
     "eco":{
         "folder":folder_path_eco,
-        "url":url_eco
+        "url":url_eco,
+        "name":"Entendez-vous l'éco ?"
     },     
 }
