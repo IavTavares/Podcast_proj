@@ -1,3 +1,5 @@
-curl --request POST --url http://127.0.0.1:5000/list_episodes --header 'Content-Type: application/json' --data '{"podcast_name": "Cultures Monde"}'
+#curl --request POST --url http://127.0.0.1:5000/list_episodes --header 'Content-Type: application/json' --data '{"podcast_name": "Cultures Monde"}'
 
 #curl --request GET --url http://127.0.0.1:5000/list_podcasts --header 'Content-Type: application/json'
+
+curl --request POST --url http://127.0.0.1:5000/download_episodes --header 'Content-Type: application/json' --data '{"episodes_url_list": ["https://www.radiofrance.fr/franceculture/podcasts/cultures-monde/culturesmonde-melanie-chalandon-du-jeudi-16-juin-2022-3390872", "https://www.radiofrance.fr/franceculture/podcasts/cultures-monde/culturesmonde-melanie-chalandon-du-vendredi-17-juin-2022-8522425"],"podcast_name": "Cultures Monde"}'
