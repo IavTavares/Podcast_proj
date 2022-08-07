@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 
 function ListItem(props) {
-  return <li key={props.value}> {props.value}</li>;
+  return <option value = {props.value}> {props.value} </option>;
 }
 
 function App() {
@@ -25,16 +25,18 @@ function App() {
     <div className="Podcast_List">
       <h2>Currently followed Podcasts</h2>  
       {podcastList.length ? (
-          <ul>{
-            podcastList.map(
-              (podcast,index) => {
-                //  {console.log("index: " + index);}
-                //  {console.log("value: " + podcast);}
-                return <ListItem index = {index} value = {podcast} />
+          <form>
+            <select name = "dropdown">{
+              podcastList.map(
+                (podcast,index) => {
+                  //  {console.log("index: " + index);}
+                  //  {console.log("value: " + podcast);}
+                  return <ListItem index = {index} value = {podcast} />
 
-              }
-            )
-          }</ul>
+                }
+              )
+            }</select>
+          </form>
         ):<div> Loading...</div> 
       }
     </div>
