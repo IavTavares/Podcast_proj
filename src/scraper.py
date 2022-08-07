@@ -42,8 +42,12 @@ def download_mp3(list_episodes:list, folder_path:str):
                 if not file_Q(os.path.join(folder_path,name)):
                     episode_mp3_url = url_mp3_list(episode_url)[0]
                     r = requests.get(episode_mp3_url, allow_redirects=True)
+                    file_path = folder_path+"/"+name
                     if r.headers.get('content-type')=="audio/mpeg":
-                            with open(folder_path+"/"+name, 'wb') as f:
+                        if file_Q(file_path):
+                            print(f"{file_path} already exists")
+                        else:
+                            with open(file_path, 'wb') as f:
                                     f.write(r.content)
                     else:
                             print(f"No audio/mpeg file was downloaded for {name}!")
