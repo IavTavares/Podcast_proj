@@ -24,7 +24,9 @@ class List_Episodes(Resource):
     # curl --request POST --url http://127.0.0.1:5000/list_episodes --header 'Content-Type: application/json' --data '{"podcast_url": "https://www.radiofrance.fr/franceculture/podcasts/cultures-monde"}'
     def post(self):
         data = request.get_json() # --header 'Content-Type: application/json'
-        podcast_url = data["podcast_url"]
+        podcast_name = data["podcast_name"]
+        info = get_info_podcast(podcast_name)
+        podcast_url = info["url"]
         list_episodes_url = episode_list(podcast_url)
         success = "True"
         errors = []
