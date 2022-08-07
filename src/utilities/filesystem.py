@@ -23,8 +23,7 @@ def get_info_podcast(name:str)-> dict:
     for show,info in db_json.items():
         if info["name"] == name:
             return info
-        else:
-            {"folder":None,"url":None,"name":None}
+    return {"folder":None,"url":None,"name":None}
 
 
 def initialize_podcast_json():
