@@ -1,32 +1,38 @@
 import React, {useEffect, useState} from 'react';
 
-
 function ListItem(props) {
-  return <li>{props.value}</li>;
+  return <li key={props.value}> {props.value}</li>;
 }
 
-
 function App() {
-  const [podcastList, setPodcastsList] = useState(0);
-  const headers = { 'Content-Type': 'application/json' };
-  useEffect(() => {
-    fetch("/list_podcasts", {method: 'GET',headers})
-      .then(res => res.json())
-      .then(data => {
-        setPodcastsList(data);
-        console.log(podcastList)
-      });
-  }, []);
+  const [podcastList, setPodcastsList] = useState([]);
+  // const headers = { 'Content-Type': 'application/json' };
 
-  console.log("2nd print:"+Promise.resolve(podcastList))
+  useEffect(() => {
+    fetch("/list_podcasts",{method:"GET",
+      headers: {'Content-Type': 'application/json'}
+    })
+      .then(res => res.json())
+      .then((data) => {
+        setPodcastsList(data["list_podcast"]);
+        console.log("data: " + data);
+        // console.log("podcastList: " + podcastList)
+      })
+  }, []);
+  
+
   return (
     <div className="Podcast_List">
-      <h2>Current followed Podcasts</h2>  
+      <h2>Currently followed Podcasts</h2>  
       {podcastList.length ? (
           <ul>{
             podcastList.map(
-              (podcast) =>
-              <ListItem value = {podcast} />
+              (podcast,index) => {
+                //  {console.log("index: " + index);}
+                //  {console.log("value: " + podcast);}
+                return <ListItem index = {index} value = {podcast} />
+
+              }
             )
           }</ul>
         ):<div> Loading...</div> 
