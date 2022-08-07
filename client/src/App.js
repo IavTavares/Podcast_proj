@@ -30,7 +30,7 @@ function App() {
     })
       .then(res => res.json())
       .then((data) => {
-        setEpisodeList(data["list_episodes_url"]);
+        setEpisodeList(data["list_episodes_names"]);
         console.log("episode_list_data: " + data);
         // console.log("podcastList: " + podcastList)
       })
