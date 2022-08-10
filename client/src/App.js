@@ -43,20 +43,24 @@ function App() {
         // console.log("episode_list_data: " + data);
       })
   }
-  // episodesList({name:"Cultures Monde"})
+ 
   
-  function downloadMP3(name){
-    const body = {"podcast_name": name};
+  function downloadMP3(){
+    const body = {"episodes_url_list": EpisodeListURLs};
     console.log("body: " + body);
-    fetch("/list_episodes",{method:"POST",
+    fetch("/download_episodes",{method:"POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(body)
     })
       .then(res => res.json())
-      .then((data) => {
-        setEpisodeList(data["list_episodes_names"]);
-        setEpisodeListURLs(data["list_episodes_url"]);
-        // console.log("episode_list_data: " + data);
+      .then((response)=> {
+        if (response['success']){
+          alert("Download was a success. See files " + response["list_episodes_names"] + "on folder " + response["podcast_name"] );
+        }else{
+          alert("There was a problem with the download.");
+        }
+        
+
       })
   }
 
@@ -97,8 +101,9 @@ function App() {
                       }
                     }
                   }
+                  setEpisodeListURLs(url_list);
                   for (let i=0; i < url_list.length; i++){
-                    console.log("url_list["+i+"]"+ url_list[i]);
+                    console.log("EpisodeListURLs["+i+"]"+ EpisodeListURLs[i]);
                   }
                 }}>{
                   EpisodeList.map(
@@ -110,7 +115,7 @@ function App() {
                     }
                   )
                 }</select>
-                <button /*onClick={downloadMP3} */ type="button"> Download MP3s</button>
+                <button onClick={downloadMP3} type="button"> Download MP3s</button>
               </div>
             {/* }} */}
           </form>

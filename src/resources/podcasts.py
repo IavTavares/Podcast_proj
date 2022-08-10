@@ -2,7 +2,6 @@
 from flask import request, jsonify
 from flask_restful import Resource
 import json
-from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from scraper import *
 from utilities.filesystem import *
 
@@ -91,7 +90,7 @@ class Download_Episodes(Resource):
     def post(self):
         data = request.get_json() # --header 'Content-Type: application/json'
         episodes_url_list = data["episodes_url_list"]
-        podcast_name = data["podcast_name"]
+        podcast_name = podcast_name_from_url(episodes_url_list[0])
         info = get_info_podcast(podcast_name)
         folder_path = info["folder"]
         download_mp3(episodes_url_list,folder_path)

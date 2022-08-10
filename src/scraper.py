@@ -22,6 +22,11 @@ def file_name(episode_url):
     res = string.strip("-0123456789")+".mp3"
     return res
 
+def podcast_name_from_url(episode_url):
+    string = re.search(r"podcasts\/(.*)\/", episode_url).group(1) 
+    return string.replace("-","_")
+
+
 def url_mp3_list(episode_url):
     """episode_url is an element from the list returned by episode_list function
     It returns a list of url for the mp3 files"""

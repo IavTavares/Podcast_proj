@@ -21,7 +21,7 @@ def get_info_podcast(name:str)-> dict:
     with open(file_path, "r") as file:
             db_json = json.load(file)
     for show,info in db_json.items():
-        if info["name"] == name:
+        if info["name"] == name or name == os.path.basename(info["folder"]):
             return info
     return {"folder":None,"url":None,"name":None}
 
