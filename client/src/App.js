@@ -31,19 +31,41 @@ function App() {
     })
       .then(res => res.json())
       .then((data) => {
+        let names = data["list_episodes_names"];
+        let urls = data["list_episodes_url"];
+        let EpisodeListTuples = [];
+        for (let i=0; i < urls.length; i++) {
+          var tuple = [names[i], urls[i]];
+          EpisodeListTuples.push(tuple);
+        }
+        setEpisodeList(EpisodeListTuples);
+        // setEpisodeListURLs(data["list_episodes_url"]);
+        // console.log("episode_list_data: " + data);
+      })
+  }
+  // episodesList({name:"Cultures Monde"})
+  
+  function downloadMP3(name){
+    const body = {"podcast_name": name};
+    console.log("body: " + body);
+    fetch("/list_episodes",{method:"POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(body)
+    })
+      .then(res => res.json())
+      .then((data) => {
         setEpisodeList(data["list_episodes_names"]);
         setEpisodeListURLs(data["list_episodes_url"]);
         // console.log("episode_list_data: " + data);
       })
   }
-  // episodesList({name:"Cultures Monde"})
 
   return (
     <div className="Podcast_List">
       <h2>Currently followed Podcasts</h2>
       <h3>Choose a Podcast to see the available episodes</h3>
       {podcastList.length ? (
-          <form action="/download_episodes" method="post">
+          <form >
             <select name = "podcast" id= "podcastList" multiple onChange={
                 (e) => {
                   // console.log(e);
@@ -61,17 +83,34 @@ function App() {
             {/* { if (EpisodeList.length){ */}
               <div>
                 <h3>Choose the episodes you want to download.</h3>
-                <select name = "episodes" id= "EpisodeList" multiple>{
+                <select name = "episodes" id= "EpisodeList" multiple onChange={
+                (e) => {
+                  // console.log(e);
+                  console.log(e.target.selectedOptions);
+                  
+                  let url_list =[];
+                  for (let episode_tuple of EpisodeList) {
+                    let selected_episode_names = e.target.selectedOptions;
+                    for (let episode of selected_episode_names){
+                      if (episode.value == episode_tuple[0]){
+                        url_list.push(episode_tuple[1])
+                      }
+                    }
+                  }
+                  for (let i=0; i < url_list.length; i++){
+                    console.log("url_list["+i+"]"+ url_list[i]);
+                  }
+                }}>{
                   EpisodeList.map(
-                    (episode,index) => {
+                    (episode_tuple) => {
                       //  {console.log("index: " + index);}
                       //  {console.log("value: " + podcast);}
-                      return <ListItem index = {episode} value = {episode} />
+                      return <ListItem index = {episode_tuple[1]} value = {episode_tuple[0]} />
 
                     }
                   )
                 }</select>
-                <input type="submit" value="Download"></input>
+                <button /*onClick={downloadMP3} */ type="button"> Download MP3s</button>
               </div>
             {/* }} */}
           </form>

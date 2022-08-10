@@ -2,7 +2,7 @@
 from flask import request, jsonify
 from flask_restful import Resource
 import json
-
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from scraper import *
 from utilities.filesystem import *
 
@@ -71,6 +71,7 @@ class List_Episodes(Resource):
         return response
 
 
+# class DownloadForm(Form):
 
 class Download_Episodes(Resource):
     """Manage the API.
