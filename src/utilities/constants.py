@@ -33,6 +33,6 @@ podcast_list = {
     "eco":{
         "folder":folder_path_eco,
         "url":url_eco,
-        "name":"Entendez-vous l'éco ?"
+        "name":"Entendez-vous l'éco?"
     },     
 }
